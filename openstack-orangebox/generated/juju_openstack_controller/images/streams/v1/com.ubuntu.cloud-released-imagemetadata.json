@@ -1,0 +1,52 @@
+{
+    "products": {
+        "com.ubuntu.cloud:server:18.04:amd64": {
+            "version": "18.04",
+            "arch": "amd64",
+            "versions": {
+                "20230801": {
+                    "items": {
+                        "97e59898-757a-4a98-a56a-5274b4c3bb88": {
+                            "id": "97e59898-757a-4a98-a56a-5274b4c3bb88",
+                            "region": "RegionOne",
+                            "endpoint": "https://172.27.24.30:5000/v3"
+                        }
+                    }
+                }
+            }
+        },
+        "com.ubuntu.cloud:server:20.04:amd64": {
+            "version": "20.04",
+            "arch": "amd64",
+            "versions": {
+                "20230801": {
+                    "items": {
+                        "3c610a6d-9439-4acc-955a-b00e835ccb09": {
+                            "id": "3c610a6d-9439-4acc-955a-b00e835ccb09",
+                            "region": "RegionOne",
+                            "endpoint": "https://172.27.24.30:5000/v3"
+                        }
+                    }
+                }
+            }
+        },
+        "com.ubuntu.cloud:server:22.04:amd64": {
+            "version": "22.04",
+            "arch": "amd64",
+            "versions": {
+                "20230801": {
+                    "items": {
+                        "d598c2a5-cb74-497d-82d3-7ab4b575994f": {
+                            "id": "d598c2a5-cb74-497d-82d3-7ab4b575994f",
+                            "region": "RegionOne",
+                            "endpoint": "https://172.27.24.30:5000/v3"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "updated": "Tue, 01 Aug 2023 17:56:21 +0000",
+    "format": "products:1.0",
+    "content_id": "com.ubuntu.cloud:custom"
+}

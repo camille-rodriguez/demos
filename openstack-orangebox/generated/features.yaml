@@ -1,0 +1,68 @@
+features:
+  openstack:
+  - name: openstack
+    created: 2023-11-20 17:00:46.455802
+    last_changed: 2023-11-20 14:44:50.086403
+    validation_level: tested
+  - name: vault
+    created: 2023-11-14 00:03:35.574200
+    last_changed: 2023-11-14 22:15:12.632112
+    validation_level: tested
+  - name: keystone
+    created: 2023-11-14 14:47:22.781225
+    last_changed: 2023-11-14 20:53:44.548322
+    validation_level: tested
+  - name: glance_simplestreams_sync
+    created: 2023-11-14 20:45:34.367722
+    last_changed: 2023-11-14 20:49:15.618085
+    validation_level: tested
+  - name: cinder
+    created: 2023-11-14 20:52:14.583404
+    last_changed: 2023-11-14 20:52:25.021501
+    validation_level: tested
+  - name: designate
+    created: 2023-11-14 20:52:45.291141
+    last_changed: 2023-11-14 20:52:48.820895
+    validation_level: tested
+  - name: ceilometer
+    created: 2023-11-14 22:16:11.750204
+    last_changed: 2023-11-14 22:16:11.755652
+    validation_level: failed
+  - name: heat
+    created: 2023-11-20 17:00:47.039991
+    last_changed: 2023-11-20 17:01:24.022517
+    validation_level: tested
+  project:
+  - name: stable
+    created: 2023-11-14 00:00:38.630770
+    last_changed: 2023-11-14 00:00:38.639807
+    validation_level: tested
+  - name: baseline
+    created: 2023-11-14 00:00:38.642432
+    last_changed: 2023-11-14 00:00:38.645057
+    validation_level: tested
+  baremetal:
+  - name: baremetal
+    created: 2023-11-14 00:00:38.630800
+    last_changed: 2023-11-14 00:00:38.630802
+    validation_level: not_reached
+  maas:
+  - name: maas
+    created: 2023-11-14 00:00:38.630823
+    last_changed: 2023-11-14 00:00:38.630825
+    validation_level: not_reached
+  juju_maas_controller:
+  - name: juju_maas_controller
+    created: 2023-11-14 00:00:38.630848
+    last_changed: 2023-11-14 14:47:27.357349
+    validation_level: validated
+  juju_openstack_controller:
+  - name: juju_openstack_controller
+    created: 2023-11-14 00:00:38.630879
+    last_changed: 2023-11-14 00:00:38.630881
+    validation_level: not_reached
+  kubernetes:
+  - name: kubernetes
+    created: 2023-11-14 00:00:38.630907
+    last_changed: 2023-11-14 00:00:38.630909
+    validation_level: not_reached

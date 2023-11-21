@@ -1,0 +1,16 @@
+{
+    "openstack": {
+        "admin": {
+            "password": "admin",
+            "project_domain_name": "admin_domain",
+            "project_name": "admin",
+            "user_domain_name": "admin_domain",
+            "username": "admin"
+        },
+        "auth_url": "https://172.27.24.30:5000/v3",
+        "endpoint_type": "public",
+        "https_cacert": "/home/ubuntu/camille/openstack/root-ca.crt",
+        "https_insecure": false,
+        "region_name": "RegionOne"
+    }
+}

@@ -1,0 +1,156 @@
+applications:
+  calico:
+    bindings:
+      ? ''
+      : alpha
+      etcd: alpha
+    charm: calico
+    options:
+      cidr: 10.249.250.0/23
+      ignore-loose-rpf: true
+      vxlan: Always
+  containerd:
+    bindings:
+      ? ''
+      : alpha
+    charm: containerd
+  easyrsa:
+    bindings:
+      ? ''
+      : alpha
+      client: alpha
+    charm: easyrsa
+    constraints: root-disk=10G
+    num_units: 1
+  etcd:
+    bindings:
+      ? ''
+      : alpha
+      certificates: alpha
+      db: alpha
+    charm: etcd
+    constraints: root-disk=10G
+    num_units: 3
+    options:
+      channel: 3.4/stable
+  kubeapi-load-balancer:
+    bindings:
+      ? ''
+      : alpha
+      certificates: alpha
+      loadbalancer: alpha
+    charm: kubeapi-load-balancer
+    constraints: allocate-public-ip=True mem=4G root-disk=10G
+    expose: true
+    num_units: 1
+  kubernetes-control-plane:
+    bindings:
+      ? ''
+      : alpha
+      ceph-client: alpha
+      certificates: alpha
+      etcd: alpha
+      keystone-credentials: alpha
+      kube-control: alpha
+      loadbalancer: alpha
+      vault-kv: alpha
+    charm: kubernetes-control-plane
+    constraints: cores=2 mem=4G root-disk=10G
+    num_units: 2
+    options:
+      allow-privileged: 'true'
+  kubernetes-worker:
+    bindings:
+      ? ''
+      : alpha
+      certificates: alpha
+      kube-control: alpha
+    charm: kubernetes-worker
+    constraints: allocate-public-ip=True cores=2 mem=4G root-disk=10G
+    expose: true
+    num_units: 2
+  # mysql-innodb-cluster:
+  #   bindings:
+  #     ? ''
+  #     : alpha
+  #     cluster: alpha
+  #     db-router: alpha
+  #   channel: 8.0/stable
+  #   charm: mysql-innodb-cluster
+  #   constraints: cores=2 mem=4G root-disk=40G
+  #   num_units: 3
+  #   options:
+  #     enable-binlogs: true
+  #     innodb-buffer-pool-size: 256M
+  #     max-connections: 2000
+  #     wait-timeout: 3600
+  ntp:
+    bindings:
+      ? ''
+      : alpha
+    charm: ntp
+    options:
+      source: ntp.canonical.com
+      verify_ntp_servers: true
+  openstack-integrator:
+    bindings:
+      ? ''
+      : alpha
+    charm: openstack-integrator
+    num_units: 1
+    options:
+      manage-security-groups: true
+  # vault:
+  #   bindings:
+  #     ? ''
+  #     : alpha
+  #     certificates: alpha
+  #     etcd: alpha
+  #     secrets: alpha
+  #     shared-db: alpha
+  #   channel: 1.7/stable
+  #   charm: vault
+  #   num_units: 1
+  #   options:
+  #     "auto-generate-root-ca-cert": True
+  # vault-mysql-router:
+  #   bindings:
+  #     ? ''
+  #     : alpha
+  #     db-router: alpha
+  #     shared-db: alpha
+  #   channel: 8.0/stable
+  #   charm: mysql-router
+series: focal
+relations:
+- ['calico:cni', 'kubernetes-control-plane:cni']
+- ['calico:cni', 'kubernetes-worker:cni']
+- ['calico:etcd', 'etcd:db']
+- ['containerd:containerd', 'kubernetes-control-plane:container-runtime']
+- ['containerd:containerd', 'kubernetes-worker:container-runtime']
+- ['easyrsa:client', 'etcd:certificates']
+- ['easyrsa:juju-info', 'ntp:juju-info']
+- ['easyrsa:client', 'kubeapi-load-balancer:certificates']
+- ['easyrsa:client', 'kubernetes-control-plane:certificates']
+- ['easyrsa:client', 'kubernetes-worker:certificates']
+- ['etcd:db', 'kubernetes-control-plane:etcd']
+# - ['etcd:db', 'vault:etcd']
+- ['etcd:juju-info', 'ntp:juju-info']
+- ['kubeapi-load-balancer:apiserver', 'kubernetes-control-plane:kube-api-endpoint']
+# - ['kubeapi-load-balancer:certificates', 'vault:certificates']
+- ['kubeapi-load-balancer:juju-info', 'ntp:juju-info']
+- ['kubeapi-load-balancer:loadbalancer', 'kubernetes-control-plane:loadbalancer']
+- ['kubeapi-load-balancer:website', 'kubernetes-worker:kube-api-endpoint']
+# - ['kubernetes-control-plane:certificates', 'vault:certificates']
+- ['kubernetes-control-plane:juju-info', 'ntp:juju-info']
+- ['kubernetes-control-plane:kube-control', 'kubernetes-worker:kube-control']
+- ['kubernetes-control-plane:openstack', 'openstack-integrator:clients']
+# - ['kubernetes-control-plane:vault-kv', 'vault:secrets']
+# - ['kubernetes-worker:certificates', 'vault:certificates']
+- ['kubernetes-worker:juju-info', 'ntp:juju-info']
+- ['kubernetes-worker:openstack', 'openstack-integrator:clients']
+# - ['mysql-innodb-cluster:db-router', 'vault-mysql-router:db-router']
+# - ['mysql-innodb-cluster:juju-info', 'ntp:juju-info']
+- ['ntp:juju-info', 'openstack-integrator:juju-info']
+# - ['ntp:juju-info', 'vault:juju-info']
+# - ['vault-mysql-router:shared-db', 'vault:shared-db']

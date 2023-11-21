@@ -1,0 +1,37 @@
+applications:
+  calico:
+    channel: stable
+    charm: calico
+    revision: 87
+  containerd:
+    channel: stable
+    charm: containerd
+    revision: 65
+  easyrsa:
+    channel: stable
+    charm: easyrsa
+    revision: 42
+  etcd:
+    channel: stable
+    charm: etcd
+    revision: 742
+  kubeapi-load-balancer:
+    channel: stable
+    charm: kubeapi-load-balancer
+    revision: 79
+  kubernetes-control-plane:
+    channel: stable
+    charm: kubernetes-control-plane
+    revision: 274
+  kubernetes-worker:
+    channel: stable
+    charm: kubernetes-worker
+    revision: 112
+  ntp:
+    channel: stable
+    charm: ntp
+    revision: 50
+  openstack-integrator:
+    channel: stable
+    charm: openstack-integrator
+    revision: 59

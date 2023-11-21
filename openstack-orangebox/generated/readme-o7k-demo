@@ -1,0 +1,31 @@
+
+cd /home/ubuntu/camille/openstack
+fce build --layer baremetal
+fce build --layer maas
+fce build --layer openstack
+#had to edit ubuntu-net to add DNS nameserver to point to MAAS IP
+fce build --layer juju_openstack_controller
+fce build --layer kubernetes
+
+# MAAS dashboard
+sshuttle -r ob24 172.27.0.0/16
+http://172.27.24.1:5240/MAAS/r/machines
+admin/admin
+
+# Openstack 
+https://172.27.25.152/horizon/auth/login/
+replace ip with horizon unit ip
+admin_domain/admin/admin
+had some issues with the novarc, make sure you export the new vault root-ca and add it to the novarc file. The novarc.json in generated also needs project id and domain id added.
+
+# Juju dashboard
+juju switch fce-maas:controller
+juju deploy juju-dashboard dashboard --channel latest/stable
+juju integrate dashboard controller
+juju expose dashboard
+juju dashboard
+
+<!-- # k8s dashboard
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/deployment?namespace=default
+
+# CDK dogs with octavia LB -->

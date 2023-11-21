@@ -1,0 +1,4 @@
+container-networking-method: local
+default-space: alpha
+fan-config: ''
+use-default-secgroup: true

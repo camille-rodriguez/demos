@@ -1,0 +1,18 @@
+{
+    "openstack": {
+        "admin": {
+            "password": "admin",
+            "project_domain_name": "admin_domain",
+            "project_name": "admin",
+            "project_domain_id": "174b0f4b2db64729bc0383dceb8c4da1",
+            "project_id":"38e51784ee8747a6a664c92e49dd9d47",
+            "user_domain_name": "admin_domain",
+            "username": "admin"
+        },
+        "auth_url": "http://172.27.25.180:5000/v3",
+        "endpoint_type": "public",
+        "https_cacert": "/home/ubuntu/snap/openstackclients/common/root-ca.crt",
+        "https_insecure": false,
+        "region_name": "RegionOne"
+    }
+}

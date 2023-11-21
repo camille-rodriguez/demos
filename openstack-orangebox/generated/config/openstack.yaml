@@ -1,0 +1,159 @@
+networks:
+  #
+  # Provider networks
+  #
+
+  # External VLAN provider network, access to Internet
+  #double check what this is set to in MAAS (ob24)
+  #- name: ext-net
+  #  subnet_name: ext-subnet
+  #  cidr: 172.27.26.0/23
+  #  gateway: 172.27.27.254
+  #  pool_start: 172.27.26.100
+  #  pool_end: 172.27.26.200
+  #  provider_type: flat
+  #  external: True
+  #  physnet: physnet1
+
+  - name: ext-net
+    subnet_name: ext-subnet
+    cidr: 172.27.26.0/23
+    gateway: 172.27.27.254
+    pool_start: 172.27.26.100
+    pool_end: 172.27.26.200
+    # provider_type: vlan # changing from vlan to flat allowed the ext network to work on ob24 - camille 11/20/2023
+    # segmentaiton_id: 1133
+    provider_type: flat
+    external: True
+    physnet: physnet1
+  
+  # Tenant networks
+  #
+
+  # Internal network 1
+    #double check what ns ip, this is set to MAAS (ob24) when designate is not deployed
+  - name: ubuntu-net
+    subnet_name: ubuntu-subnet
+    cidr: 192.168.0.0/24
+    enable_dhcp: True
+    gateway: 192.168.0.1
+    pool_start: 192.168.0.2
+    pool_end: 192.168.0.254
+    dns_nameservers: 172.27.24.1
+
+routers:
+  - router_name: ext-net-router
+    router_external: ext-net
+    router_internal:
+      - ubuntu-net
+
+keypair_file: /home/ubuntu/.ssh/id_rsa.pub
+keypair_name: ubuntu-keypair
+image_series: jammy
+kvm_image_name: jammy-kvm
+auto_set_dns: true
+
+quotas:
+  # 4x CPU (8 threads) per hypervisor
+  # - 4x threads for OS and OpenStack Control Plane
+  # - 4x threads (vCPUs) for VMs
+  #
+  # 4 vCPUs x 6x hypervisors x 2 cpu-allocation-ratio = 48
+  cores: 48
+  instances: 48
+
+  # 16GB RAM per hypervisor
+  #  - 8GB for OS
+  #  - 8GB for VMs
+  #
+  # 8GB per hypervisor x 6 hypervisor x 1 ram-allocation-ratio = 48GB
+  ram: 49152
+
+  # Ceph total capacity: 175GiB
+  # Ceph replication ratio: 3
+  #
+  # Images total capacity: 5GB
+  #  - 5GB x 3 replication ratio = 15GB total raw capacity
+  #
+  # Raw storage available for volumes
+  # 175GB - 15GB = 160GB
+  #
+  # Usable storage for volumes
+  # 160GB / 3 replication ratio ~= 50GB
+  gigabytes: 50
+  volumes: 50
+  snapshots: 50
+
+  secgroups: 500
+  secgroup-rules: 1000
+  ports: 100
+
+flavors:
+  - name: m1.tiny
+    ram: 512
+    vcpus: 1
+    disk: 1
+    id: 1
+  - name: m1.small
+    ram: 2048
+    vcpus: 1
+    disk: 10 # 20
+    id: 2
+  - name: m1.medium
+    ram: 4096
+    vcpus: 2
+    disk: 15 # 40
+    id: 3
+  - name: m1.large
+    ram: 8192
+    vcpus: 4
+    disk: 20 # 80
+    id: 4
+  # - name: m1.xlarge
+  #   ram: 16384
+  #   vcpus: 8
+  #   disk: 160
+  #   id: 5
+  # - name: m1.small.fast-cpu
+  #   ram: 2048
+  #   vcpus: 1
+  #   disk: 10
+  #   id: 6
+  #   properties:
+  #     "aggregate_instance_extra_specs:fast-cpu": "true"
+# host_aggregates:
+#   - name: AZ1
+#     zone: AZ1
+#     hosts:
+#       - node01.maas
+#       - node02.maas
+#   - name: AZ2
+#     zone: AZ2
+#     hosts:
+#       - node03.maas
+#       - node04.maas
+#   - name: AZ3
+#     zone: AZ3
+#     hosts:
+#       - node05.maas
+#       - node06.maas
+#   - name: fast-cpu
+#     properties:
+#       fast-cpu: "true"
+#     hosts:
+#       - node01.maas
+#       - node04.maas
+#       - node06.maas
+#   - name: high-iops
+#     properties:
+#       high-iops: "true"
+#     hosts:
+#       - node02.maas
+#       - node04.maas
+#       - node06.maas
+#   - name: gpu
+#     properties:
+#       "pci_passthrough:alias": "gpu:1"
+#     hosts:
+#       - node03.maas
+#       - node06.maas

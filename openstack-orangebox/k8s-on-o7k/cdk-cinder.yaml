@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pv-cinder-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+      #  volumeMode: Block
+  resources:
+    requests:
+      storage: 3Gi
+  storageClassName: cdk-cinder
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: cdk-cinder
+  name: cdk-cinder
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cdk-cinder
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: cdk-cinder
+    spec:
+      volumes:
+        - name: pv-cinder
+          persistentVolumeClaim:
+            claimName: pv-cinder-claim
+      containers:
+      - image: calvinhartwell/cdk-cats:latest
+        imagePullPolicy: ""
+        name: cdk-cinder
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          timeoutSeconds: 30
+        resources: {}
+        volumeMounts:
+          - mountPath: "/cinder-mount"
+            name: pv-cinder
+      restartPolicy: Always
+      serviceAccountName: ""
+status: {}

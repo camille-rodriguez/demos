@@ -1,0 +1,71 @@
+variables:
+  aodh-vip: &aodh-vip "172.27.24.21"
+  barbican-vip: &barbican-vip "172.27.24.22"
+  ceilometer-vip: &ceilometer-vip "172.27.24.23"
+  cinder-vip: &cinder-vip "172.27.24.24"
+  dashboard-vip: &dashboard-vip "172.27.24.25"
+  # designate-vip: &designate-vip "172.27.24.26"
+  glance-vip: &glance-vip "172.27.24.27"
+  gnocchi-vip: &gnocchi-vip "172.27.24.28"
+  heat-vip: &heat-vip "172.27.24.29"
+  keystone-vip: &keystone-vip "172.27.24.30"
+  neutron-api-vip: &neutron-api-vip "172.27.24.32"
+  nova-cc-vip: &nova-cc-vip "172.27.24.33"
+  rados-gateway-vip: &rados-gateway-vip "172.27.24.36"
+  placement-vip: &placement-vip "172.27.24.35"
+  vault-vip: &vault-vip "172.27.24.37"
+  
+  octavia-vip: &octavia-vip "172.27.24.34"
+  manila-vip: &manila-vip "172.27.24.38"
+  ganesha-vip: &ganesha-vip "172.27.24.39"
+
+applications:
+  ceph-radosgw:
+    options:
+      vip: *rados-gateway-vip
+  # OpenStack
+  aodh:
+    options:
+      vip: *aodh-vip
+  barbican:
+    options:
+      vip: *barbican-vip
+  gnocchi:
+    options:
+      vip: *gnocchi-vip
+  cinder:
+    options:
+      vip: *cinder-vip
+  glance:
+    options:
+      vip: *glance-vip
+  keystone:
+    options:
+      vip: *keystone-vip
+  neutron-api:
+    options:
+      vip: *neutron-api-vip
+  nova-cloud-controller:
+    options:
+      vip: *nova-cc-vip
+  octavia:
+    options:
+      vip: *octavia-vip
+  openstack-dashboard:
+    options:
+      vip: *dashboard-vip
+  placement:
+    options:
+      vip: *placement-vip
+  heat:
+    options:
+      vip: *heat-vip
+  # designate:
+  #   options:
+  #     vip: *designate-vip
+  ceilometer:
+    options:
+      vip: *ceilometer-vip
+  vault:
+    options:
+      vip: *vault-vip

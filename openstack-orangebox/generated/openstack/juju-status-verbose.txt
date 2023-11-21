@@ -1,0 +1,301 @@
+Model      Controller  Cloud/Region  Version  SLA          Timestamp
+openstack  fce-maas    maas_cloud    2.9.45   unsupported  21:31:27Z
+
+App                         Version          Status   Scale  Charm                       Channel        Rev  Exposed  Message
+barbican                    14.0.2           active       1  barbican                    yoga/stable    157  no       Unit is ready
+barbican-mysql-router       8.0.34           active       1  mysql-router                8.0/stable     111  no       Unit is ready
+barbican-vault              3.10.0           active       1  barbican-vault              yoga/stable     57  no       Unit is ready
+ceph-mon                    17.2.6           active       3  ceph-mon                    quincy/stable  185  no       Unit is ready and clustered
+ceph-osd                    17.2.6           blocked      8  ceph-osd                    quincy/stable  564  no       Non-pristine devices detected, consult `list-disks`, `zap-disk` and `blacklist-*` actions.
+ceph-radosgw                17.2.6           active       1  ceph-radosgw                quincy/stable  564  no       Unit is ready
+cinder                      20.3.0           active       1  cinder                      yoga/stable    656  no       Unit is ready
+cinder-ceph                 20.3.0           active       1  cinder-ceph                 yoga/stable    527  no       Unit is ready
+cinder-mysql-router         8.0.34           active       1  mysql-router                8.0/stable     111  no       Unit is ready
+dashboard-mysql-router      8.0.34           active       1  mysql-router                8.0/stable     111  no       Unit is ready
+designate                   14.0.3           active       1  designate                   yoga/stable    204  no       Unit is ready
+designate-bind              9.18.12          active       1  designate-bind              yoga/stable    107  no       Unit is ready
+designate-mysql-router      8.0.34           active       1  mysql-router                8.0/stable     111  no       Unit is ready
+glance                      24.2.0           active       1  glance                      yoga/stable    587  no       Unit is ready
+glance-mysql-router         8.0.34           active       1  mysql-router                8.0/stable     111  no       Unit is ready
+glance-simplestreams-sync                    active       1  glance-simplestreams-sync   yoga/stable     91  no       Unit is ready (Glance sync completed at 10/05/23 21:26:16, metadata not uploaded - object-store usage disabled)
+heat                        18.0.1           active       1  heat                        yoga/stable    535  no       Unit is ready
+heat-mysql-router           8.0.34           active       1  mysql-router                8.0/stable     111  no       Unit is ready
+keystone                    21.0.0           active       1  keystone                    yoga/stable    658  no       Application Ready
+keystone-mysql-router       8.0.34           active       1  mysql-router                8.0/stable     111  no       Unit is ready
+magnum                      14.1.0           active       1  magnum                      yoga/stable     42  no       Unit is ready
+magnum-dashboard            10.0.0           active       1  magnum-dashboard            yoga/stable     30  no       Unit is ready
+magnum-mysql-router         8.0.34           active       1  mysql-router                8.0/stable     111  no       Unit is ready
+memcached                                    active       1  memcached                   stable          38  no       Unit is ready
+mysql-innodb-cluster        8.0.34           active       3  mysql-innodb-cluster        8.0/stable     106  no       Unit is ready: Mode: R/W, Cluster is ONLINE and can tolerate up to ONE failure.
+neutron-api                 20.4.0           active       1  neutron-api                 yoga/stable    560  no       Unit is ready
+neutron-api-plugin-ovn      20.4.0           active       1  neutron-api-plugin-ovn      yoga/stable     29  no       Unit is ready
+neutron-mysql-router        8.0.34           active       1  mysql-router                8.0/stable     111  no       Unit is ready
+nova-cloud-controller       25.2.0           active       1  nova-cloud-controller       yoga/stable    697  no       Unit is ready
+nova-compute                25.2.0           active       8  nova-compute                yoga/stable    701  no       Unit is ready
+nova-mysql-router           8.0.34           active       1  mysql-router                8.0/stable     111  no       Unit is ready
+ntp                         4.2              active       8  ntp                         stable          50  no       chrony: Ready
+octavia                     10.1.0           active       1  octavia                     yoga/stable    193  no       Unit is ready
+octavia-dashboard           9.0.0            active       1  octavia-dashboard           yoga/stable     44  no       Unit is ready
+octavia-diskimage-retrofit  1.0.1+git4.g...  active       1  octavia-diskimage-retrofit  yoga/stable    102  no       Unit is ready
+octavia-mysql-router        8.0.34           active       1  mysql-router                8.0/stable     111  no       Unit is ready
+openstack-dashboard         22.1.1           active       1  openstack-dashboard         yoga/stable    608  no       Unit is ready
+ovn-central                 22.03.3          active       3  ovn-central                 22.03/stable   144  no       Unit is ready (leader: ovnnb_db, ovnsb_db northd: active)
+ovn-chassis                 22.03.3          active       8  ovn-chassis                 22.03/stable   163  no       Unit is ready
+ovn-chassis-octavia         22.03.3          active       1  ovn-chassis                 22.03/stable   163  no       Unit is ready
+placement                   7.0.0            active       1  placement                   yoga/stable     94  no       Unit is ready
+placement-mysql-router      8.0.34           active       1  mysql-router                8.0/stable     111  no       Unit is ready
+rabbitmq-server             3.9.13           active       1  rabbitmq-server             3.9/stable     182  no       Unit is ready
+vault                       1.8.8            blocked      3  vault                       1.8/stable     183  no       Vault cannot authorize approle
+vault-mysql-router          8.0.34           active       3  mysql-router                8.0/stable     111  no       Unit is ready
+
+Unit                             Workload  Agent  Machine  Public address  Ports               Message
+barbican/0*                      active    idle   1/lxd/0  172.27.25.104   9311/tcp,9312/tcp   Unit is ready
+  barbican-mysql-router/0*       active    idle            172.27.25.104                       Unit is ready
+  barbican-vault/0*              active    idle            172.27.25.104                       Unit is ready
+ceph-mon/0                       active    idle   0/lxd/0  172.27.25.113                       Unit is ready and clustered
+ceph-mon/1*                      active    idle   1/lxd/1  172.27.25.100                       Unit is ready and clustered
+ceph-mon/2                       active    idle   2/lxd/0  172.27.25.101                       Unit is ready and clustered
+ceph-osd/0                       active    idle   0        172.27.25.86                        Unit is ready (1 OSD)
+ceph-osd/1                       active    idle   1        172.27.25.66                        Unit is ready (1 OSD)
+ceph-osd/2*                      active    idle   2        172.27.25.65                        Unit is ready (1 OSD)
+ceph-osd/3                       active    idle   3        172.27.25.99                        Unit is ready (1 OSD)
+ceph-osd/4                       active    idle   4        172.27.24.181                       Unit is ready (1 OSD)
+ceph-osd/5                       active    idle   5        172.27.25.62                        Unit is ready (1 OSD)
+ceph-osd/6                       blocked   idle   6        172.27.25.91                        Non-pristine devices detected, consult `list-disks`, `zap-disk` and `blacklist-*` actions.
+ceph-osd/7                       blocked   idle   7        172.27.25.81                        No block devices detected using current configuration
+ceph-radosgw/0*                  active    idle   3/lxd/0  172.27.25.107   80/tcp              Unit is ready
+cinder/0*                        active    idle   4/lxd/0  172.27.25.94    8776/tcp            Unit is ready
+  cinder-ceph/0*                 active    idle            172.27.25.94                        Unit is ready
+  cinder-mysql-router/0*         active    idle            172.27.25.94                        Unit is ready
+designate-bind/0*                active    idle   2/lxd/1  172.27.25.116                       Unit is ready
+designate/0*                     active    idle   1/lxd/2  172.27.25.121   9001/tcp            Unit is ready
+  designate-mysql-router/0*      active    idle            172.27.25.121                       Unit is ready
+glance-simplestreams-sync/0*     active    idle   4/lxd/1  172.27.25.97                        Unit is ready (Glance sync completed at 10/05/23 21:26:16, metadata not uploaded - object-store usage disabled)
+  octavia-diskimage-retrofit/0*  active    idle            172.27.25.97                        Unit is ready
+glance/0*                        active    idle   0/lxd/1  172.27.25.114   9292/tcp            Unit is ready
+  glance-mysql-router/0*         active    idle            172.27.25.114                       Unit is ready
+heat/0*                          active    idle   0/lxd/2  172.27.25.117   8000/tcp,8004/tcp   Unit is ready
+  heat-mysql-router/0*           active    idle            172.27.25.117                       Unit is ready
+keystone/0*                      active    idle   3/lxd/1  172.27.25.109   5000/tcp            Unit is ready
+  keystone-mysql-router/0*       active    idle            172.27.25.109                       Unit is ready
+magnum/0*                        active    idle   2/lxd/2  172.27.25.119   9511/tcp            Unit is ready
+  magnum-mysql-router/0*         active    idle            172.27.25.119                       Unit is ready
+memcached/0*                     active    idle   2/lxd/1  172.27.25.116   11211/tcp           Unit is ready
+mysql-innodb-cluster/0           active    idle   3/lxd/2  172.27.25.95                        Unit is ready: Mode: R/W, Cluster is ONLINE and can tolerate up to ONE failure.
+mysql-innodb-cluster/1*          active    idle   4/lxd/2  172.27.25.96                        Unit is ready: Mode: R/O, Cluster is ONLINE and can tolerate up to ONE failure.
+mysql-innodb-cluster/2           active    idle   2/lxd/3  172.27.25.115                       Unit is ready: Mode: R/O, Cluster is ONLINE and can tolerate up to ONE failure.
+neutron-api/0*                   active    idle   4/lxd/3  172.27.25.98    9696/tcp            Unit is ready
+  neutron-api-plugin-ovn/0*      active    idle            172.27.25.98                        Unit is ready
+  neutron-mysql-router/0*        active    idle            172.27.25.98                        Unit is ready
+nova-cloud-controller/0*         active    idle   0/lxd/3  172.27.25.120   8774/tcp,8775/tcp   Unit is ready
+  nova-mysql-router/0*           active    idle            172.27.25.120                       Unit is ready
+nova-compute/0                   active    idle   0        172.27.25.86                        Unit is ready
+  ntp/1                          active    idle            172.27.25.86    123/udp             chrony: Ready
+  ovn-chassis/1                  active    idle            172.27.25.86                        Unit is ready
+nova-compute/1                   active    idle   1        172.27.25.66                        Unit is ready
+  ntp/4                          active    idle            172.27.25.66    123/udp             chrony: Ready
+  ovn-chassis/4                  active    idle            172.27.25.66                        Unit is ready
+nova-compute/2*                  active    idle   2        172.27.25.65                        Unit is ready
+  ntp/0*                         active    idle            172.27.25.65    123/udp             chrony: Ready
+  ovn-chassis/0*                 active    idle            172.27.25.65                        Unit is ready
+nova-compute/3                   active    idle   3        172.27.25.99                        Unit is ready
+  ntp/5                          active    idle            172.27.25.99    123/udp             chrony: Ready
+  ovn-chassis/5                  active    idle            172.27.25.99                        Unit is ready
+nova-compute/4                   active    idle   4        172.27.24.181                       Unit is ready
+  ntp/3                          active    idle            172.27.24.181   123/udp             chrony: Ready
+  ovn-chassis/3                  active    idle            172.27.24.181                       Unit is ready
+nova-compute/5                   active    idle   5        172.27.25.62                        Unit is ready
+  ntp/2                          active    idle            172.27.25.62    123/udp             chrony: Ready
+  ovn-chassis/2                  active    idle            172.27.25.62                        Unit is ready
+nova-compute/6                   active    idle   6        172.27.25.91                        Unit is ready
+  ntp/7                          active    idle            172.27.25.91    123/udp             chrony: Ready
+  ovn-chassis/7                  active    idle            172.27.25.91                        Unit is ready
+nova-compute/7                   active    idle   7        172.27.25.81                        Unit is ready
+  ntp/6                          active    idle            172.27.25.81    123/udp             chrony: Ready
+  ovn-chassis/6                  active    idle            172.27.25.81                        Unit is ready
+octavia/0*                       active    idle   3/lxd/3  172.27.25.106   9876/tcp            Unit is ready
+  octavia-mysql-router/0*        active    idle            172.27.25.106                       Unit is ready
+  ovn-chassis-octavia/0*         active    idle            172.27.25.106                       Unit is ready
+openstack-dashboard/0*           active    idle   1/lxd/3  172.27.25.124   80/tcp,443/tcp      Unit is ready
+  dashboard-mysql-router/0*      active    idle            172.27.25.124                       Unit is ready
+  magnum-dashboard/0*            active    idle            172.27.25.124                       Unit is ready
+  octavia-dashboard/0*           active    idle            172.27.25.124                       Unit is ready
+ovn-central/0*                   active    idle   0/lxd/4  172.27.25.112   6641/tcp,6642/tcp   Unit is ready (leader: ovnnb_db, ovnsb_db northd: active)
+ovn-central/1                    active    idle   1/lxd/4  172.27.25.118   6641/tcp,6642/tcp   Unit is ready
+ovn-central/2                    active    idle   2/lxd/4  172.27.25.93    6641/tcp,6642/tcp   Unit is ready
+placement/0*                     active    idle   1/lxd/5  172.27.25.105   8778/tcp            Unit is ready
+  placement-mysql-router/0*      active    idle            172.27.25.105                       Unit is ready
+rabbitmq-server/0*               active    idle   2/lxd/5  172.27.25.102   5672/tcp,15672/tcp  Unit is ready
+vault/0                          blocked   idle   0/lxd/5  172.27.25.111   8200/tcp            Vault cannot authorize approle
+  vault-mysql-router/1           active    idle            172.27.25.111                       Unit is ready
+vault/1*                         active    idle   1/lxd/6  172.27.25.108   8200/tcp            Unit is ready (active: true, mlock: disabled)
+  vault-mysql-router/0*          active    idle            172.27.25.108                       Unit is ready
+vault/2                          blocked   idle   2/lxd/6  172.27.25.103   8200/tcp            Vault cannot authorize approle
+  vault-mysql-router/2           active    idle            172.27.25.103                       Unit is ready
+
+Machine  State    Address        Inst id              Series  AZ     Message
+0        started  172.27.25.86   node02               jammy   zone2  Deployed
+0/lxd/0  started  172.27.25.113  juju-136301-0-lxd-0  jammy   zone2  Container started
+0/lxd/1  started  172.27.25.114  juju-136301-0-lxd-1  jammy   zone2  Container started
+0/lxd/2  started  172.27.25.117  juju-136301-0-lxd-2  jammy   zone2  Container started
+0/lxd/3  started  172.27.25.120  juju-136301-0-lxd-3  jammy   zone2  Container started
+0/lxd/4  started  172.27.25.112  juju-136301-0-lxd-4  jammy   zone2  Container started
+0/lxd/5  started  172.27.25.111  juju-136301-0-lxd-5  jammy   zone2  Container started
+1        started  172.27.25.66   node03               jammy   zone3  Deployed
+1/lxd/0  started  172.27.25.104  juju-136301-1-lxd-0  jammy   zone3  Container started
+1/lxd/1  started  172.27.25.100  juju-136301-1-lxd-1  jammy   zone3  Container started
+1/lxd/2  started  172.27.25.121  juju-136301-1-lxd-2  jammy   zone3  Container started
+1/lxd/3  started  172.27.25.124  juju-136301-1-lxd-3  jammy   zone3  Container started
+1/lxd/4  started  172.27.25.118  juju-136301-1-lxd-4  jammy   zone3  Container started
+1/lxd/5  started  172.27.25.105  juju-136301-1-lxd-5  jammy   zone3  Container started
+1/lxd/6  started  172.27.25.108  juju-136301-1-lxd-6  jammy   zone3  Container started
+2        started  172.27.25.65   node07               jammy   zone1  Deployed
+2/lxd/0  started  172.27.25.101  juju-136301-2-lxd-0  jammy   zone1  Container started
+2/lxd/1  started  172.27.25.116  juju-136301-2-lxd-1  jammy   zone1  Container started
+2/lxd/2  started  172.27.25.119  juju-136301-2-lxd-2  jammy   zone1  Container started
+2/lxd/3  started  172.27.25.115  juju-136301-2-lxd-3  jammy   zone1  Container started
+2/lxd/4  started  172.27.25.93   juju-136301-2-lxd-4  jammy   zone1  Container started
+2/lxd/5  started  172.27.25.102  juju-136301-2-lxd-5  jammy   zone1  Container started
+2/lxd/6  started  172.27.25.103  juju-136301-2-lxd-6  jammy   zone1  Container started
+3        started  172.27.25.99   node09               jammy   zone2  Deployed
+3/lxd/0  started  172.27.25.107  juju-136301-3-lxd-0  jammy   zone2  Container started
+3/lxd/1  started  172.27.25.109  juju-136301-3-lxd-1  jammy   zone2  Container started
+3/lxd/2  started  172.27.25.95   juju-136301-3-lxd-2  jammy   zone2  Container started
+3/lxd/3  started  172.27.25.106  juju-136301-3-lxd-3  jammy   zone2  Container started
+4        started  172.27.24.181  node10               jammy   zone3  Deployed
+4/lxd/0  started  172.27.25.94   juju-136301-4-lxd-0  jammy   zone3  Container started
+4/lxd/1  started  172.27.25.97   juju-136301-4-lxd-1  jammy   zone3  Container started
+4/lxd/2  started  172.27.25.96   juju-136301-4-lxd-2  jammy   zone3  Container started
+4/lxd/3  started  172.27.25.98   juju-136301-4-lxd-3  jammy   zone3  Container started
+5        started  172.27.25.62   node05               jammy   zone2  Deployed
+6        started  172.27.25.91   node06               jammy   zone3  Deployed
+7        started  172.27.25.81   node01               jammy   zone1  Deployed
+
+Relation provider                      Requirer                                         Interface                       Type         Message
+barbican-mysql-router:shared-db        barbican:shared-db                               mysql-shared                    subordinate  
+barbican-vault:secrets                 barbican:secrets                                 barbican-secrets                subordinate  
+barbican:cluster                       barbican:cluster                                 openstack-ha                    peer         
+ceph-mon:client                        cinder-ceph:ceph                                 ceph-client                     regular      
+ceph-mon:client                        glance:ceph                                      ceph-client                     regular      
+ceph-mon:client                        nova-compute:ceph                                ceph-client                     regular      
+ceph-mon:mon                           ceph-mon:mon                                     ceph                            peer         
+ceph-mon:osd                           ceph-osd:mon                                     ceph-osd                        regular      
+ceph-mon:radosgw                       ceph-radosgw:mon                                 ceph-radosgw                    regular      
+ceph-radosgw:cluster                   ceph-radosgw:cluster                             swift-ha                        peer         
+cinder-ceph:ceph-access                nova-compute:ceph-access                         cinder-ceph-key                 regular      
+cinder-ceph:storage-backend            cinder:storage-backend                           cinder-backend                  subordinate  
+cinder-mysql-router:shared-db          cinder:shared-db                                 mysql-shared                    subordinate  
+cinder:cinder-volume-service           nova-cloud-controller:cinder-volume-service      cinder                          regular      
+cinder:cluster                         cinder:cluster                                   cinder-ha                       peer         
+dashboard-mysql-router:shared-db       openstack-dashboard:shared-db                    mysql-shared                    subordinate  
+designate-bind:cluster                 designate-bind:cluster                           openstack-ha                    peer         
+designate-bind:dns-backend             designate:dns-backend                            bind-rndc                       regular      
+designate-mysql-router:shared-db       designate:shared-db                              mysql-shared                    subordinate  
+designate:cluster                      designate:cluster                                openstack-ha                    peer         
+designate:dnsaas                       neutron-api:external-dns                         designate                       regular      
+glance-mysql-router:shared-db          glance:shared-db                                 mysql-shared                    subordinate  
+glance-simplestreams-sync:juju-info    octavia-diskimage-retrofit:juju-info             juju-info                       subordinate  
+glance:cluster                         glance:cluster                                   glance-ha                       peer         
+glance:image-service                   cinder:image-service                             glance                          regular      
+glance:image-service                   nova-cloud-controller:image-service              glance                          regular      
+glance:image-service                   nova-compute:image-service                       glance                          regular      
+heat-mysql-router:shared-db            heat:shared-db                                   mysql-shared                    subordinate  
+heat:cluster                           heat:cluster                                     heat-ha                         peer         
+keystone-mysql-router:shared-db        keystone:shared-db                               mysql-shared                    subordinate  
+keystone:cluster                       keystone:cluster                                 keystone-ha                     peer         
+keystone:identity-credentials          octavia-diskimage-retrofit:identity-credentials  keystone-credentials            regular      
+keystone:identity-service              barbican:identity-service                        keystone                        regular      
+keystone:identity-service              ceph-radosgw:identity-service                    keystone                        regular      
+keystone:identity-service              cinder:identity-service                          keystone                        regular      
+keystone:identity-service              designate:identity-service                       keystone                        regular      
+keystone:identity-service              glance-simplestreams-sync:identity-service       keystone                        regular      
+keystone:identity-service              glance:identity-service                          keystone                        regular      
+keystone:identity-service              heat:identity-service                            keystone                        regular      
+keystone:identity-service              magnum:identity-service                          keystone                        regular      
+keystone:identity-service              neutron-api:identity-service                     keystone                        regular      
+keystone:identity-service              nova-cloud-controller:identity-service           keystone                        regular      
+keystone:identity-service              octavia:identity-service                         keystone                        regular      
+keystone:identity-service              openstack-dashboard:identity-service             keystone                        regular      
+keystone:identity-service              placement:identity-service                       keystone                        regular      
+magnum-mysql-router:shared-db          magnum:shared-db                                 mysql-shared                    subordinate  
+magnum:cluster                         magnum:cluster                                   openstack-ha                    peer         
+memcached:cache                        designate:coordinator-memcached                  memcache                        regular      
+memcached:cluster                      memcached:cluster                                memcached-replication           peer         
+mysql-innodb-cluster:cluster           mysql-innodb-cluster:cluster                     mysql-innodb-cluster            peer         
+mysql-innodb-cluster:coordinator       mysql-innodb-cluster:coordinator                 coordinator                     peer         
+mysql-innodb-cluster:db-router         barbican-mysql-router:db-router                  mysql-router                    regular      
+mysql-innodb-cluster:db-router         cinder-mysql-router:db-router                    mysql-router                    regular      
+mysql-innodb-cluster:db-router         dashboard-mysql-router:db-router                 mysql-router                    regular      
+mysql-innodb-cluster:db-router         designate-mysql-router:db-router                 mysql-router                    regular      
+mysql-innodb-cluster:db-router         glance-mysql-router:db-router                    mysql-router                    regular      
+mysql-innodb-cluster:db-router         heat-mysql-router:db-router                      mysql-router                    regular      
+mysql-innodb-cluster:db-router         keystone-mysql-router:db-router                  mysql-router                    regular      
+mysql-innodb-cluster:db-router         magnum-mysql-router:db-router                    mysql-router                    regular      
+mysql-innodb-cluster:db-router         neutron-mysql-router:db-router                   mysql-router                    regular      
+mysql-innodb-cluster:db-router         nova-mysql-router:db-router                      mysql-router                    regular      
+mysql-innodb-cluster:db-router         octavia-mysql-router:db-router                   mysql-router                    regular      
+mysql-innodb-cluster:db-router         placement-mysql-router:db-router                 mysql-router                    regular      
+mysql-innodb-cluster:db-router         vault-mysql-router:db-router                     mysql-router                    regular      
+neutron-api-plugin-ovn:neutron-plugin  neutron-api:neutron-plugin-api-subordinate       neutron-plugin-api-subordinate  subordinate  
+neutron-api:cluster                    neutron-api:cluster                              neutron-api-ha                  peer         
+neutron-api:neutron-api                nova-cloud-controller:neutron-api                neutron-api                     regular      
+neutron-api:neutron-load-balancer      octavia:neutron-api                              neutron-load-balancer           regular      
+neutron-mysql-router:shared-db         neutron-api:shared-db                            mysql-shared                    subordinate  
+nova-cloud-controller:cluster          nova-cloud-controller:cluster                    nova-ha                         peer         
+nova-compute:cloud-compute             nova-cloud-controller:cloud-compute              nova-compute                    regular      
+nova-compute:compute-peer              nova-compute:compute-peer                        nova                            peer         
+nova-compute:juju-info                 ntp:juju-info                                    juju-info                       subordinate  
+nova-mysql-router:shared-db            nova-cloud-controller:shared-db                  mysql-shared                    subordinate  
+ntp:ntp-peers                          ntp:ntp-peers                                    ntp                             peer         
+octavia-mysql-router:shared-db         octavia:shared-db                                mysql-shared                    subordinate  
+octavia:cluster                        octavia:cluster                                  openstack-ha                    peer         
+openstack-dashboard:cluster            openstack-dashboard:cluster                      openstack-dashboard-ha          peer         
+openstack-dashboard:dashboard-plugin   magnum-dashboard:dashboard                       dashboard-plugin                subordinate  
+openstack-dashboard:dashboard-plugin   octavia-dashboard:dashboard                      dashboard-plugin                subordinate  
+ovn-central:coordinator                ovn-central:coordinator                          coordinator                     peer         
+ovn-central:ovsdb                      ovn-chassis-octavia:ovsdb                        ovsdb                           regular      
+ovn-central:ovsdb                      ovn-chassis:ovsdb                                ovsdb                           regular      
+ovn-central:ovsdb-cms                  neutron-api-plugin-ovn:ovsdb-cms                 ovsdb-cms                       regular      
+ovn-central:ovsdb-cms                  octavia:ovsdb-cms                                ovsdb-cms                       regular      
+ovn-central:ovsdb-peer                 ovn-central:ovsdb-peer                           ovsdb-cluster                   peer         
+ovn-chassis-octavia:ovsdb-subordinate  octavia:ovsdb-subordinate                        ovsdb-subordinate               subordinate  
+ovn-chassis:nova-compute               nova-compute:neutron-plugin                      neutron-plugin                  subordinate  
+placement-mysql-router:shared-db       placement:shared-db                              mysql-shared                    subordinate  
+placement:cluster                      placement:cluster                                openstack-ha                    peer         
+placement:placement                    nova-cloud-controller:placement                  placement                       regular      
+rabbitmq-server:amqp                   barbican:amqp                                    rabbitmq                        regular      
+rabbitmq-server:amqp                   cinder:amqp                                      rabbitmq                        regular      
+rabbitmq-server:amqp                   designate:amqp                                   rabbitmq                        regular      
+rabbitmq-server:amqp                   glance:amqp                                      rabbitmq                        regular      
+rabbitmq-server:amqp                   heat:amqp                                        rabbitmq                        regular      
+rabbitmq-server:amqp                   magnum:amqp                                      rabbitmq                        regular      
+rabbitmq-server:amqp                   neutron-api:amqp                                 rabbitmq                        regular      
+rabbitmq-server:amqp                   nova-cloud-controller:amqp                       rabbitmq                        regular      
+rabbitmq-server:amqp                   nova-compute:amqp                                rabbitmq                        regular      
+rabbitmq-server:amqp                   octavia:amqp                                     rabbitmq                        regular      
+rabbitmq-server:cluster                rabbitmq-server:cluster                          rabbitmq-ha                     peer         
+vault-mysql-router:shared-db           vault:shared-db                                  mysql-shared                    subordinate  
+vault:certificates                     barbican-vault:certificates                      tls-certificates                regular      
+vault:certificates                     barbican:certificates                            tls-certificates                regular      
+vault:certificates                     ceph-radosgw:certificates                        tls-certificates                regular      
+vault:certificates                     cinder:certificates                              tls-certificates                regular      
+vault:certificates                     designate-bind:certificates                      tls-certificates                regular      
+vault:certificates                     designate:certificates                           tls-certificates                regular      
+vault:certificates                     glance-simplestreams-sync:certificates           tls-certificates                regular      
+vault:certificates                     glance:certificates                              tls-certificates                regular      
+vault:certificates                     heat:certificates                                tls-certificates                regular      
+vault:certificates                     keystone:certificates                            tls-certificates                regular      
+vault:certificates                     magnum:certificates                              tls-certificates                regular      
+vault:certificates                     mysql-innodb-cluster:certificates                tls-certificates                regular      
+vault:certificates                     neutron-api-plugin-ovn:certificates              tls-certificates                regular      
+vault:certificates                     neutron-api:certificates                         tls-certificates                regular      
+vault:certificates                     nova-cloud-controller:certificates               tls-certificates                regular      
+vault:certificates                     octavia:certificates                             tls-certificates                regular      
+vault:certificates                     openstack-dashboard:certificates                 tls-certificates                regular      
+vault:certificates                     ovn-central:certificates                         tls-certificates                regular      
+vault:certificates                     ovn-chassis-octavia:certificates                 tls-certificates                regular      
+vault:certificates                     ovn-chassis:certificates                         tls-certificates                regular      
+vault:certificates                     placement:certificates                           tls-certificates                regular      
+vault:cluster                          vault:cluster                                    vault-ha                        peer         
+vault:secrets                          barbican-vault:secrets-storage                   vault-kv                        regular      
+

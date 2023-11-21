@@ -1,0 +1,16 @@
+kubectl get all -n demo-cinder
+
+kubectl exec -it pod/cdk-cinder-85c95ff58c-vlhd8 -n demo-cinder -- /bin/bash
+
+df -h
+
+touch cinder-mount/test
+echo "something" >> cinder-mount/test
+
+kubectl delete pod cdk-cinder-85c95ff58c-vlhd8 -n demo-cinder
+
+kubectl get all -n demo-cinder
+
+kubectl exec -it pod/cdk-cinder-85c95ff58c-ks2m6 -n demo-cinder -- /bin/bash
+
+cat cinder-mount/test

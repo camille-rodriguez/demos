@@ -1,0 +1,27 @@
+# export OS_TENANT_NAME=admin
+# export OS_DOMAIN_NAME=admin_domain
+# export OS_USER_DOMAIN_NAME=admin_domain
+# export OS_PROJECT_NAME=admin
+# export OS_PROJECT_DOMAIN_NAME=admin_domain
+# export OS_AUTH_TYPE=password
+# export OS_INTERFACE=public
+# export OS_USERNAME=admin
+# export OS_PASSWORD=admin
+# export OS_REGION_NAME=RegionOne
+# export OS_DOMAIN_NAME=admin_domain
+# export OS_IDENTITY_API_VERSION=3
+# export OS_AUTH_URL=http://172.27.25.180:5000/v3
+# OS_CACERT=/home/ubuntu/camille/openstack/config/root-ca.crt
+
+OS_REGION_NAME=RegionOne
+OS_PROJECT_DOMAIN_ID=174b0f4b2db64729bc0383dceb8c4da1
+OS_INTERFACE=public
+OS_CACERT=/home/ubuntu/camille/openstack/config/root-ca.crt
+OS_AUTH_URL=https://172.27.25.180:5000/v3
+OS_USERNAME=admin
+OS_PROJECT_ID=38e51784ee8747a6a664c92e49dd9d47
+OS_USER_DOMAIN_NAME=admin_domain
+OS_PROJECT_NAME=admin
+OS_PASSWORD=admin
+OS_IDENTITY_API_VERSION=3
+

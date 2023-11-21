@@ -1,0 +1,24 @@
+{
+    "index": {
+        "com.ubuntu.cloud:custom": {
+            "updated": "Tue, 01 Aug 2023 17:56:21 +0000",
+            "format": "products:1.0",
+            "datatype": "image-ids",
+            "cloudname": "custom",
+            "clouds": [
+                {
+                    "region": "RegionOne",
+                    "endpoint": "https://172.27.24.30:5000/v3"
+                }
+            ],
+            "path": "streams/v1/com.ubuntu.cloud-released-imagemetadata.json",
+            "products": [
+                "com.ubuntu.cloud:server:18.04:amd64",
+                "com.ubuntu.cloud:server:20.04:amd64",
+                "com.ubuntu.cloud:server:22.04:amd64"
+            ]
+        }
+    },
+    "updated": "Tue, 01 Aug 2023 17:56:21 +0000",
+    "format": "index:1.0"
+}

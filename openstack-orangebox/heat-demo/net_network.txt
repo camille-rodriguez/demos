@@ -1,0 +1,23 @@
+# Create example Heat stack
+ 
+TEMPLATE="https://raw.githubusercontent.com/openstack/heat-templates/master/hot/servers_in_new_neutron_net.yaml"
+ 
+openstack stack create \
+  --template ${TEMPLATE} \
+  --enable-rollback \
+  --parameter key_name=ob24_default \
+  --parameter image=jammy-kvm \
+  --parameter flavor=m1.medium \
+  --parameter public_net=ext-net \
+  --parameter private_net_name=private-net \
+  --parameter private_net_cidr=10.0.10.0/24 \
+  --parameter private_net_gateway=10.0.10.1 \
+  --parameter private_net_pool_start=10.0.10.10 \
+  --parameter private_net_pool_end=10.0.10.200 \
+  servers_in_new_neutron_net
+ 
+# Verify stack creation
+openstack stack show servers_in_new_neutron_net
+ 
+# Delete the stack
+openstack stack delete servers_in_new_neutron_net

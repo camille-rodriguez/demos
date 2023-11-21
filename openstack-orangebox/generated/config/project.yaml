@@ -1,0 +1,511 @@
+project:
+  customer: Orange Box
+  project: Orange Box Demo
+  opportunity: None
+  sku: fcb-stable-yoga-jammy
+  arch: custom-orangebox
+  hw: approved
+  config:
+    fce_git_ref_hint: stable/latest
+    fcbtest_snap_channel: latest/stable
+  features:
+    - stable
+    - baseline
+layers:
+  - name: baremetal
+    type: baremetal
+    config:
+      hosts:
+        - hostname: ob80
+          ip: 172.27.24.1
+          zone: default
+  - name: maas
+    type: existing_maas
+    parent: baremetal
+    config:
+      apikey_path: /home/ubuntu/camille/openstack/config/api_maas
+      api_url: http://172.27.24.1:5240/MAAS
+
+  # - name: baremetal
+  #   type: baremetal
+  #   config:
+  #     hosts: include-rel://config/hosts.yaml
+  # - name: maas
+  #   type: maas
+  #   parent: baremetal
+  #   config:
+  #     tweaks:
+  #       - nobond
+  #       - nobridge
+  #       - nomaasha
+  #       - nopgha
+  #       - nojujuha
+  #     maas_vip: 172.27.80.1
+  #     postgresql_vip: 172.27.80.1
+  #     package_repositories:
+  #       [] # optional dict
+  #       # For params see: 'maas playground package-repositories create --help'
+  #     maas_config: # optional dict
+  #       # For params see: 'maas profile maas set-config --help'
+  #       dnssec_validation: "no"
+  #       upstream_dns: 8.8.8.8
+  #       # If a proxy is required, set this
+  #       # http_proxy: FCE_TEMPLATE
+  #       # set this when a proxy server is configured for MAAS so that
+  #       # MAAS acts as an intermediary for all nodes in the deployment
+  #       # use_peer_proxy: true
+  #       commissioning_distro_series: focal
+  #     maas_boot_source_selections:
+  #       - release: "focal"
+  #         arches: ["amd64"]
+  #       - release: "bionic"
+  #         arches: ["amd64"]
+  #     maas_admin: root
+  #     maas_admin_email: root@localhost.localdomain
+  #     maas_admin_password: root
+  #     maas_admin_ssh_key: /home/ubuntu/.ssh/id_rsa.pub
+  #     snap_channel: "3.3/stable"
+  #     networks: include-rel://config/networks.yaml
+  #     enlist_timeout: 1801
+  #     nodeconfig: include-rel://config/bucketsconfig.yaml
+  #     nodes: include-rel://config/nodes.yaml
+  #     vms: include-rel://config/vms.yaml
+  #     vmconfig: include-rel://config/vmsbucketsconfig.yaml
+  #     domains:
+  #       - name: orange.box
+  #     dnsresources:
+  #       - fqdn: aodh.orange.box
+  #         ip_addresses: 172.27.80.21
+  #       - fqdn: ceilometer.orange.box
+  #         ip_addresses: 172.27.80.22
+  #       - fqdn: cinder.orange.box
+  #         ip_addresses: 172.27.80.23
+  #       - fqdn: dashboard.orange.box
+  #         ip_addresses: 172.27.80.24
+  #       - fqdn: designate.orange.box
+  #         ip_addresses: 172.27.80.25
+  #       - fqdn: glance.orange.box
+  #         ip_addresses: 172.27.80.26
+  #       - fqdn: gnocchi.orange.box
+  #         ip_addresses: 172.27.80.27
+  #       - fqdn: heat.orange.box
+  #         ip_addresses: 172.27.80.28
+  #       - fqdn: keystone.orange.box
+  #         ip_addresses: 172.27.80.29
+  #       - fqdn: neutron.orange.box
+  #         ip_addresses: 172.27.80.31
+  #       - fqdn: nova.orange.box
+  #         ip_addresses: 172.27.80.32
+  #       - fqdn: radosgw.orange.box
+  #         ip_addresses: 172.27.80.33
+  #       - fqdn: masakari.orange.box
+  #         ip_addresses: 172.27.80.34
+  #       - fqdn: placement.orange.box
+  #         ip_addresses: 172.27.80.35
+  #       - fqdn: vault.orange.box
+  #         ip_addresses: 172.27.80.36
+  #       - fqdn: barbican.orange.box
+  #         ip_addresses: 172.27.80.37
+  #       - fqdn: octavia.orange.box
+  #         ip_addresses: 172.27.80.38
+  #       - fqdn: manila.orange.box
+  #         ip_addresses: 172.27.80.39
+  #       - fqdn: ganesha.orange.box
+  #         ip_addresses: 172.27.80.40
+  #       - fqdn: magnum.orange.box
+  #         ip_addresses: 172.27.80.41
+  - name: juju_maas_controller
+    type: juju_maas_controller
+    parent: maas
+    config:
+      controller_name: fce-maas
+      model_defaults: # optional dict
+        # see: 'juju model-config --help'
+        # Use maas_vip as http_proxy (port 3128 for regular http and 8000 for packages)
+        # apt-http-proxy: http://maas_vip:8000
+        # apt-https-proxy: http://maas_vip:8000
+        # snap-http-proxy: http://maas_vip:3128
+        # snap-https-proxy: http://maas_vip:3128
+        # juju-http-proxy: http://maas_vip:3128
+        # juju-https-proxy: http://maas_vip:3128
+        # NOTE: only use new-style no-proxy for MAAS/other provider hostnames
+        # as juju-{http,https}-proxy settings appear as JUJU_CHARM_{HTTP,HTTPS}_PROXY,
+        # not as {HTTP,HTTPS}_PROXY environment variables and do not affect hook environment
+        # see https://git.io/fh5ky for more information
+        # juju-no-proxy: FCE_TEMPLATE
+        juju-no-proxy: 10.0.0.0/8,192.168.0.0/16,172.16.0.0/12,127.0.0.1,localhost
+        # XXX: 1891223
+        # This value of 2000 comes from
+        # https://linuxcontainers.org/lxd/docs/master/production-setup
+        # The default is 200.
+        cloudinit-userdata: |
+          write_files:
+            - content: |
+                kernel.keys.maxkeys = 2000
+                kernel.keys.maxbytes = 2000000
+              owner: "root:root"
+              path: /etc/sysctl.d/10-keys.conf
+              permissions: "0644"
+            - content: |
+                set ignorecase
+                set hlsearch
+                set nu
+                set lisp
+                colorscheme ron
+                set paste
+              owner: "root:root"
+              path: /etc/vim/vimrc.local
+              permissions: '0644'
+          postruncmd:
+            - sysctl --system
+      extra_options:
+        bootstrap-series: focal
+  #  uncomment to include magpie
+  #- include-rel://config/magpie.yaml
+
+
+  - name: openstack
+    type: openstack
+    parent: juju_maas_controller
+    features:
+      - name: openstack-minimal
+      - name: vault-fde
+      - name: barbican
+        #- name: octavia
+      - name: telemetry
+      - name: designate
+      - name: ntp
+        options:
+          # Override those when there are more suitable NTP servers locally.
+          # If a deployment is behind a proxy, you should remove the default
+          # set of NTP servers on the Internet to avoid false positives.
+          source: ""
+          pools: "0.ubuntu.pool.ntp.org 1.ubuntu.pool.ntp.org 2.ubuntu.pool.ntp.org 3.ubuntu.pool.ntp.org ntp.ubuntu.com"
+      - name: openstack
+        options:
+          openstack-origin: cloud:focal-yoga
+          dashboard-secret: include-file://../../secrets/openstack-dashboard-secret.txt
+        #   # Warning: NEVER use direct drive references (as /dev/sda and so on),
+        #   # as they are never guaranteed to be persistent across the reboots.
+        #   # ephemeral-device: /dev/disk/by-dname/FCE_TEMPLATE
+          flat-network-providers: physnet1
+          vlan-ranges:
+          dns-domain: "openstack.orangebox.lan."
+          physical-network-mtus: physnet1:1500
+          bridge-mappings: physnet1:br-data
+          lb-mgmt-issuing-cacert: include-base64://../../tls/octavia/issuing_ca.pem
+          lb-mgmt-issuing-ca-private-key: include-base64://../../tls/octavia/issuing_ca_key.pem
+          lb-mgmt-issuing-ca-key-passphrase: foobar
+          lb-mgmt-controller-cacert: include-base64://../../tls/octavia/controller_ca.pem
+          lb-mgmt-controller-cert: include-base64://../../tls/octavia/controller_cert_bundle.pem
+          designate-nameservers: "ns1.designate.orange.box."
+          designate-bind_allowed_nets: ""
+          designate-bind_forwarders: 172.27.80.1
+      # - name: ha
+      #   options:
+      #     ha_count: 1
+      # - name: ovn
+      #   options:
+      #     data-port: br-data:usb0
+      # - name: ceph
+      #   options:
+      #     # Warning: NEVER use direct drive references, as /dev/sdX and so on,
+      #     # because they are never guaranteed to be persistent across the reboots.
+      #     osd-devices: /dev/disk/by-dname/sdb-part1
+          # expected-osd-count: 3
+    config:
+      bundle_options:
+        series: jammy
+        binding_map:
+          oam-space: oam-space
+          admin-space: oam-space
+          public-space: oam-space
+          dns-access-space: oam-space
+          internal-space: oam-space
+          overlay-space: oam-space
+          ceph-public-space: oam-space
+          ceph-cluster-space: oam-space
+      build_bundle: false
+      juju_model: openstack
+      model_config:
+        default-space: oam-space
+      bundles: # Primary bundle followed by optional overlays.
+        - ob_jammy_yoga.yaml
+        # - overlay-vips.yaml
+        # - overlay-orangebox.yaml
+        # - overlay-manila.yaml
+      # ha_type: use ssl if using SSL certs and hostnames, otherwise use dnsha, vip or none
+      ha_type: none
+      # cacert: /home/ubuntu/camille/openstack/config/root-ca.crt
+      cacert: /home/ubuntu/snap/openstackclients/common/root-ca.crt
+      openstack_config: include-rel://config/openstack.yaml
+      retry_error_count: 5
+      wait_exclude:
+        - public-policy-routing
+        - keystone-ldap
+      applications:
+        - name: vault
+          wait_exclude:
+            - barbican-vault
+            - ceilometer
+            - ceph-osd
+            - ceph-radosgw
+            - ceph-mon
+            - cinder-ceph
+            - glance
+            - gnocchi
+            - keystone-ldap # Not configured for Lab deployment
+            - neutron-api-plugin-ovn
+            - nova-compute
+            - octavia
+            - ovn-chassis-octavia
+            - ovn-central
+            - ovn-chassis
+            - public-policy-routing # Not configured for Lab deployment
+            - vault
+        - name: ceilometer # XXX: 1822190
+          wait_exclude:
+            - ceilometer
+            - public-policy-routing
+            - keystone-ldap
+              #- name: octavia
+              #          wait_exclude:
+              #            - octavia
+              #            - public-policy-routing
+              #            - keystone-ldap
+              #        - name: octaviadiskimageretrofit
+              #          application: octavia-diskimage-retrofit
+              #          wait_exclude:
+              #            - public-policy-routing
+              #            - keystone-ldap
+        - name: heat
+          wait_exclude:
+            - public-policy-routing
+            - keystone-ldap
+        - name: cinder
+          wait_exclude:
+            - public-policy-routing
+            - keystone-ldap
+        - name: designate
+          config:
+            set_dns_app: ["neutron-api-plugin-ovn"]
+          wait_exclude:
+            - public-policy-routing
+            - keystone-ldap
+  #     validate:
+  #       - type: rados
+  #         config:
+  #           unit: ceph-mon/0
+  #       - type: tempest
+  #         config:
+  #           verifier_name: tempest_refstack
+  #           test_list_path: SQA_testlist.txt
+  #           template_conf: tempest_template.conf
+  #           image_url: https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img
+
+  # - name: openstack
+  #   type: existing_openstack
+  #   config:
+  #     novarc_path: /home/ubuntu/camille/openstack/novarc # Specify an existing openstack novarc to tell FCE not to deploy its own openstack
+  #     cacert: /home/ubuntu/camille/openstack/root-ca.crt
+
+  - name: juju_openstack_controller
+    type: juju_openstack_controller
+    # parent: openstack
+    parent: openstack
+    config:
+      # ha: 3
+      # ha_timeout: 1200
+      controller_name: foundation-openstack
+      model_defaults: # optional dict
+        # see: 'juju model-config --help'
+        use-floating-ip: True
+        # If a proxy is required, set it here
+        # apt-http-proxy: FCE_TEMPLATE
+        # apt-https-proxy: FCE_TEMPLATE
+        # snap-http-proxy: FCE_TEMPLATE
+        # snap-https-proxy: FCE_TEMPLATE
+        automatically-retry-hooks: false
+        # logging-config: <root>=DEBUG
+        network: ubuntu-net
+        external-network: ext-net
+        cloudinit-userdata: |
+          write_files:
+            - content: |
+                set ignorecase
+                set hlsearch
+                set lisp
+                colorscheme ron
+                set paste
+              owner: "root:root"
+              path: /etc/vim/vimrc.local
+              permissions: '0644'
+      extra_options:
+        bootstrap-constraints: "cores=2 mem=4G"
+
+  # - name: lma-openstack
+  #   type: juju_workload
+  #   parent: juju_openstack_controller
+  #   features:
+  #     - name: livepatch
+  #       options:
+  #         livepatch_key: FCE_TEMPLATE
+  #     - name: lma
+  #     - name: ntp
+  #       options:
+  #         source: ntp.ubuntu.com
+  #   config:
+  #     juju_model: lma-openstack
+  #     build_bundle: true
+  #     bundle_options:
+  #       series: focal
+  #     bundles:
+  #       - overlay-lma-options.yaml
+  #       - overlay-lma-subordinate-options.yaml
+  #     offers:
+  #       - application: graylog
+  #         endpoints: [beats]
+  #       - application: prometheus
+  #         endpoints: [target, manual-jobs]
+  #       - application: grafana
+  #         endpoints: [dashboards]
+  #     wait_exclude:
+  #       - graylog # XXX LP: 1846364
+
+  # - name: kubernetes-openstack # default with yoga bundle
+  #   type: kubernetes
+  #   parent: juju_openstack_controller
+  #   features:
+  #     - name: kubernetes-pcb
+  #     - name: livepatch
+  #       options:
+  #         livepatch_key: FCE_TEMPLATE
+  #     - name: lma-subordinates
+  #     - name: ntp
+  #       options:
+  #         source: ntp.ubuntu.com
+  #     - name: calico
+  #       options:
+  #         vxlan: Always
+  #         ignore-loose-rpf: true
+  #         cidr: 172.16.1.0/24
+  #   config:
+  #     juju_model: kubernetes-openstack
+  #     model_config:
+  #       container-networking-method: local
+  #       fan-config: "" # XXX: 1880729 fan networking breaks the ES charm.
+  #     bundles: # Primary bundle followed by optional overlays.
+  #       - overlay_kubernetes_options.yaml
+  #       - overlay-lma-subordinate-options.yaml
+  #     build_bundle: true
+  #     consume_layers:
+  #       - lma-openstack
+  #     bundle_options:
+  #       series: focal
+  #     openstack_integrator_network: FCE_TEMPLATE
+  #     wait_exclude:
+  #       - graylog # XXX lp: 1846364
+  #     applications:
+  #       - name: vault
+  #         wait_exclude:
+  #           - filebeat
+  #           - kubernetes-master
+  #           - kubernetes-worker
+  #           - vault
+  #           - calico
+  #     crashdump:
+  #       addons:
+  #         - config
+  #         - debug-layer
+  #         - k8s-pod-logs
+  #     validate:
+  #       - type: k8s-suite
+  #         config:
+  #           git_rev: "1.24"
+  #           tests:
+  #             - test_clusterip_service_endpoint
+  #             - test_status_messages
+  #             - test_snap_versions
+  #             - test_rbac
+  #             - test_microbot
+  #             - test_dashboard
+  #             - test_network_policies
+  #             - test_gpu_support
+  #             - test_kubelet_extra_config
+  #             - test_sans
+  #             - test_audit_default_config
+  #             - test_audit_empty_policy
+  #             - test_audit_custom_policy
+  #             - test_encryption_at_rest
+  #       - type: octavia
+
+  - name: kubernetes # copied from fkb/sku/stable-kubernetes-focal-existingopenstack
+    type: kubernetes
+    parent: juju_openstack_controller
+    features:
+      # - name: kubernetes-pcb
+      - name: kubernetes-minimal
+      - name: easyrsa-ca
+      - name: kubernetes-openstack-integration
+      - name: calico
+        options:
+          vxlan: Always
+          ignore-loose-rpf: true
+          cidr: 172.16.1.0/24
+    config:
+      juju_model: kubernetes
+      model_config:
+        container-networking-method: local
+        fan-config: "" # XXX: 1880729 fan networking breaks the ES charm.
+        default-space: alpha
+
+        # Workaround for bug https://bugs.launchpad.net/charm-openstack-integrator/+bug/1884995
+        # Note that the default security group in OpenStack project should be updated to
+        # allow traffic from ports 30000-32767
+        use-default-secgroup: true
+      bundles: # Primary bundle followed by optional overlays.
+        - /home/ubuntu/camille/openstack/k8s-on-o7k/k8s.yaml
+        # - overlay_kubernetes_options.yaml
+      build_bundle: false
+      bundle_options:
+        series: focal
+        binding_map:
+          oam-space: alpha
+          internal-space: alpha
+      openstack_integrator_network: ext-net
+      openstack_integrator_subnet: ubuntu-subnet
+      wait_exclude:
+        - graylog # XXX lp: 1846364
+      # applications:
+      #   - name: vault
+      #     wait_exclude:
+      #       - filebeat
+      #       - kubernetes-master
+      #       - kubernetes-worker
+      #       - vault
+      #       - calico
+      # crashdump:
+      #   addons:
+      #     - config
+      #     - debug-layer
+      #     - k8s-pod-logs
+      # validate:
+      #   - type: k8s-suite
+      #     config:
+      #       git_rev: "23ca03b4"
+      #       tests:
+      #         - test_clusterip_service_endpoint
+      #         - test_status_messages
+      #         - test_snap_versions
+      #         - test_rbac
+      #         - test_microbot
+      #         - test_dashboard
+      #         - test_network_policies
+      #         - test_gpu_support
+      #         - test_kubelet_extra_config
+      #         - test_sans
+      #         - test_audit_default_config
+      #         - test_audit_empty_policy
+      #         - test_audit_custom_policy
+      #         - test_encryption_at_rest
+      #         - test_dns_provider

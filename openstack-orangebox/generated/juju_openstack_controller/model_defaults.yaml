@@ -1,0 +1,7 @@
+automatically-retry-hooks: false
+cloudinit-userdata: "write_files:\n  - content: |\n      set ignorecase\n      set\
+  \ hlsearch\n      set lisp\n      colorscheme ron\n      set paste\n    owner: \"\
+  root:root\"\n    path: /etc/vim/vimrc.local\n    permissions: '0644'\n"
+external-network: ext-net
+network: ubuntu-net
+use-floating-ip: true

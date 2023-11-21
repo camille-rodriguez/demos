@@ -1,0 +1,149 @@
+applications:
+  hacluster-aodh:
+    options:
+      cluster_count: 1
+  hacluster-barbican:
+    options:
+      cluster_count: 1
+  hacluster-cinder:
+    options:
+      cluster_count: 1
+  hacluster-glance:
+    options:
+      cluster_count: 1
+  hacluster-gnocchi:
+    options:
+      cluster_count: 1
+  hacluster-openstack-dashboard:
+    options:
+      cluster_count: 1
+  hacluster-keystone:
+    options:
+      cluster_count: 1
+  hacluster-neutron-api:
+    options:
+      cluster_count: 1
+  hacluster-nova-cloud-controller:
+    options:
+      cluster_count: 1
+  hacluster-octavia:
+    options:
+      cluster_count: 1
+  hacluster-placement:
+    options:
+      cluster_count: 1
+  hacluster-ceph-radosgw:
+    options:
+      cluster_count: 1
+  # hacluster-designate:
+  #   options:
+  #     cluster_count: 1
+  hacluster-heat:
+    options:
+      cluster_count: 1
+  hacluster-ceilometer:
+    options:
+      cluster_count: 1
+  hacluster-vault:
+    options:
+      cluster_count: 1
+
+  ceph-mon:
+    options:
+      customize-failure-domain: false
+      monitor-count: 1
+      expected-osd-count: 3
+
+  ceph-osd:
+    options:
+      customize-failure-domain: false
+      osd-encrypt: false
+
+  # cinder-backup:
+  #   charm: cs:~openstack-charmers/cinder-backup
+
+  keystone:
+    options:
+      admin-password: "admin" # Because why not? This is a lab environment
+
+  # Remove keystone-ldap charm
+  keystone-ldap:
+
+  neutron-api:
+    options:
+      global-physnet-mtu: 1422 # MicroTik specific
+      path-mtu: 1422 # MicroTik specific
+
+  nova-cloud-controller:
+    options:
+      console-access-protocol: novnc # spice does not work well in the browser
+      # cpu-allocation-ratio: 2
+
+  nova-compute:
+    options:
+      reserved-host-memory: 8192 # OrangeBox has only 16GB RAM
+      ephemeral-device: "" # Not enabled in bucketsconfig
+      cpu-mode: none
+      cpu-model: ""
+      customize-failure-domain: false
+      encrypt: false
+      config-flags: "block_device_allocate_retries=300,block_device_allocate_retries_interval=5,block_device_creation_timeout=600" # OrangeBox is slow, wait longer
+
+  octavia:
+    options:
+      create-mgmt-network: True # Automatically create management network
+      amp-ssh-pub-key: include-base64:///home/ubuntu/.ssh/id_rsa.pub
+      amp-ssh-key-name: amphora-keypair
+      loadbalancer-topology: SINGLE # ACTIVE_STANDBY # Have two amphora instances per LB
+      spare-pool-size: 0 # Do not create any spares
+
+  openstack-dashboard:
+    options:
+      neutron-network-lb: false # Octavia is deployed
+      # cinder-backup: true # cinder-backup is deployed by this overlay
+      ubuntu-theme: "yes" # Set custom theme explicitly
+      custom-theme: false
+
+  rabbitmq-server:
+    options:
+      min-cluster-size: 1
+      cluster-partition-handling: ignore
+
+  # designate-bind:
+  #   options:
+  #     allowed_nets: ""
+  #     forwarders: 172.27.24.1
+
+  glance-simplestreams-sync:
+    options:
+      # Do not synchronise images periodically. Otherwise juju controller on top of
+      # OpenStack will not be able to find images that were initially used in
+      # metadata when the juju controller was created.
+      run: "false"
+
+  # Workaround for "ERROR cannot deploy bundle: downgrades are not currently supported"
+  # easyrsa:
+  #   channel: latest/stable
+  etcd:
+    channel: latest/stable
+  memcached:
+    channel: latest/stable
+  ntp:
+    channel: latest/stable
+
+  # Remove applications
+  public-policy-routing:
+  lldpd:
+  bcache-tuning:
+  juju-lint:
+
+  vault:
+    options:
+      auto-generate-root-ca-cert: true
+
+# relations:
+  # - ["cinder-backup:ceph", "ceph-mon:client"]
+  # - ["cinder-backup:backup-backend", "cinder:backup-backend"]
+
+  # FIXME: check if this is still needed
+  # - ["glance:cinder-volume-service", "cinder:cinder-volume-service"]

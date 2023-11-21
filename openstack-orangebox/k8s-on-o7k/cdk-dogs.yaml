@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: cdk-dogs
+  name: cdk-dogs
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cdk-dogs
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: cdk-dogs
+    spec:
+      containers:
+      - image: hillmanj/cdk-dogs:latest
+        imagePullPolicy: ""
+        name: cdk-dogs
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          timeoutSeconds: 30
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cdk-dogs
+spec:
+  type: LoadBalancer
+  selector:
+     app: cdk-dogs
+  ports:
+  - name: cdk-dogs
+    protocol: TCP
+    port: 80
+    targetPort: 80

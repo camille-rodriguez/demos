@@ -1,0 +1,50 @@
+
+
+
+# --- DNS ------------------------------------------------------------------------------
+
+
+resource "openstack_dns_zone_v2" "example-zone" {
+  provider    = openstack.alice
+  name        = "example.com."
+  email       = "jdoe@example.com"
+  description = "An example zone"
+  ttl         = 3000
+  type        = "PRIMARY"
+}
+
+
+resource "openstack_dns_recordset_v2" "recordset-example-zone" {
+  provider    = openstack.alice
+  zone_id     = openstack_dns_zone_v2.example-zone.id
+  name        = "www.example.com."
+  description = "DNS A record pointing to Web Loadbalancer"
+  ttl         = 3000
+  type        = "A"
+  records = [
+    "${openstack_networking_floatingip_v2.web-loadbalancer-floating-ip.address}"
+  ]
+}
+
+# Shares
+
+
+resource "openstack_sharedfilesystem_share_v2" "web-share" {
+  provider    = openstack.alice
+  name        = "DB Share"
+  description = "File system shared by db-* servers"
+  share_proto = "NFS"
+  size        = 1
+}
+
+# Share accesses
+
+
+resource "openstack_sharedfilesystem_share_access_v2" "web-1-share-access" {
+  share_id    = openstack_sharedfilesystem_share_v2.web-share.id
+  access_type = "ip"
+  # FIXME: specifying single IP address does not work, share could not be mounted on a VM
+  # access_to    = openstack_compute_instance_v2.web-1.access_ip_v4
+  access_to    = "0.0.0.0/0"
+  access_level = "rw"
+}

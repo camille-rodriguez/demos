@@ -1,0 +1,21 @@
+{
+    "openstack": {
+        "admin": {
+            "password": "ohtieThaek3aep1a",
+            "project_domain_name": "admin_domain",
+            "project_id": "8f4326048f8b4e4eb2b29053a7cce644",
+            "project_name": "admin",
+            "user_domain_name": "admin_domain",
+            "username": "admin",
+            "domain_name": "admin_domain",
+            "tenant_name": "admin",
+            "project_domain_id": "b791e8360e2f4e69bb5e9e16dca90fec"
+        },
+        "auth_type": "password",
+        "auth_url": "https://172.27.25.204:5000/v3",
+        "endpoint_type": "public",
+        "https_cacert": "/home/ubuntu/camille/openstack/root-ca.crt",
+        "region_name": "RegionOne",
+        "identity_api_version": "3"
+    }
+}

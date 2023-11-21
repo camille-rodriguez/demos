@@ -1,0 +1,115 @@
+variables:
+  oam-space: &oam-space oam-space
+  openstack-origin: &openstack-origin distro
+  openstack-region: &openstack-region RegionOne
+  manila-vip: &manila-vip "172.27.24.38"
+  ganesha-vip: &ganesha-vip "172.27.24.39"
+  ssl_ca: &ssl_ca >-
+    include-base64: /home/ubuntu/camille/openstack/config/root-ca.crt
+  ssl_cert: &ssl_cert >-
+    include-base64://../ssl/orange.box.crt
+  # ssl_key: &ssl_key >-
+  #   include-base64://../ssl/orange.box.key
+
+applications:
+  ceph-fs:
+    charm: ceph-fs
+    channel: quincy/stable
+    bindings:
+      "": *oam-space
+    options:
+      source: *openstack-origin
+    num_units: 1
+    to:
+      - lxd:5
+
+  manila:
+    charm: manila
+    channel: yoga/stable
+    bindings:
+      "": *oam-space
+    options:
+      openstack-origin: *openstack-origin
+      region: *openstack-region
+      vip: *manila-vip
+      default-share-backend: cephfsnfs1
+      share-protocols: NFS
+      use-internal-endpoints: True
+      # os-public-hostname: manila.orange.box
+      # os-internal-hostname: manila.orange.box
+      # os-admin-hostname: manila.orange.box
+      ssl_ca: *ssl_ca
+      ssl_cert: *ssl_cert
+      # ssl_key: *ssl_key
+    num_units: 1
+    to:
+      - lxd:6
+
+  manila-hacluster:
+    charm: hacluster
+    channel: 2.4/stable
+    options:
+      cluster_count: 1
+
+  manila-mysql-router:
+    bindings:
+      "": oam-space
+      db-router: oam-space
+    charm: mysql-router
+    channel: 8.0/stable
+
+  manila-ganesha:
+    charm: manila-ganesha
+    channel: yoga/stable
+    bindings:
+      "": *oam-space
+    options:
+      openstack-origin: *openstack-origin
+      use-internal-endpoints: True
+      vip: *ganesha-vip
+      # os-public-hostname: ganesha.orange.box
+      # os-internal-hostname: ganesha.orange.box
+      # os-admin-hostname: ganesha.orange.box
+      # As of 2021-07-01 it is not supported
+      ssl_ca: *ssl_ca
+      ssl_cert: *ssl_cert
+      # ssl_key: *ssl_key
+    num_units: 1
+    to:
+      - lxd:4
+
+  manila-ganesha-hacluster:
+    charm: hacluster
+    channel: 2.4/stable
+    options:
+      cluster_count: 1
+
+  manila-ganesha-mysql-router:
+    bindings:
+      "": oam-space
+      db-router: oam-space
+    charm: mysql-router
+    channel: 8.0/stable
+
+  manila-dashboard:
+    charm: manila-dashboard
+    channel: yoga/stable
+    num_units: 0
+
+relations:
+  - ["ceph-mon:mds", "ceph-fs:ceph-mds"]
+  - ["manila:ha", "manila-hacluster:ha"]
+  - ["manila:amqp", "rabbitmq-server:amqp"]
+  - ["manila:identity-service", "keystone:identity-service"]
+  - ["mysql-innodb-cluster:db-router", "manila-mysql-router:db-router"]
+  - ["manila-mysql-router:shared-db", "manila:shared-db"]
+  - ["manila-ganesha:ha", "manila-ganesha-hacluster:ha"]
+  - ["ceph-mon:client", "manila-ganesha:ceph"]
+  - ["mysql-innodb-cluster:db-router", "manila-ganesha-mysql-router:db-router"]
+  - ["manila-ganesha-mysql-router:shared-db", "manila-ganesha:shared-db"]
+  - ["openstack-dashboard:dashboard-plugin", "manila-dashboard:dashboard"]
+  - ["manila-ganesha:amqp", "rabbitmq-server:amqp"]
+  # - ["manila-ganesha:identity-service", "keystone:identity-credentials"]
+  - ["manila:remote-manila-plugin", "manila-ganesha:manila-plugin"]
+  - ["manila-ganesha", "vault"]
+  - ["manila", "vault"]

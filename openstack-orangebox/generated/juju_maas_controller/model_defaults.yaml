@@ -1,0 +1,7 @@
+cloudinit-userdata: "write_files:\n  - content: |\n      kernel.keys.maxkeys = 2000\n\
+  \      kernel.keys.maxbytes = 2000000\n    owner: \"root:root\"\n    path: /etc/sysctl.d/10-keys.conf\n\
+  \    permissions: \"0644\"\n  - content: |\n      set ignorecase\n      set hlsearch\n\
+  \      set nu\n      set lisp\n      colorscheme ron\n      set paste\n    owner:\
+  \ \"root:root\"\n    path: /etc/vim/vimrc.local\n    permissions: '0644'\npostruncmd:\n\
+  \  - sysctl --system\n"
+juju-no-proxy: 10.0.0.0/8,192.168.0.0/16,172.16.0.0/12,127.0.0.1,localhost

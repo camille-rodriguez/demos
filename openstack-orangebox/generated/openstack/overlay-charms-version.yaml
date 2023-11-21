@@ -1,0 +1,185 @@
+applications:
+  aodh:
+    channel: yoga/stable
+    charm: aodh
+    revision: 111
+  aodh-mysql-router:
+    channel: 8.0/stable
+    charm: mysql-router
+    revision: 111
+  barbican:
+    channel: yoga/stable
+    charm: barbican
+    revision: 157
+  barbican-mysql-router:
+    channel: 8.0/stable
+    charm: mysql-router
+    revision: 111
+  barbican-vault:
+    channel: yoga/stable
+    charm: barbican-vault
+    revision: 57
+  ceilometer:
+    channel: yoga/stable
+    charm: ceilometer
+    revision: 545
+  ceilometer-agent:
+    channel: yoga/stable
+    charm: ceilometer-agent
+    revision: 509
+  ceph-mon:
+    channel: quincy/stable
+    charm: ceph-mon
+    revision: 191
+  ceph-osd:
+    channel: quincy/stable
+    charm: ceph-osd
+    revision: 576
+  ceph-radosgw:
+    channel: quincy/stable
+    charm: ceph-radosgw
+    revision: 564
+  cinder:
+    channel: yoga/stable
+    charm: cinder
+    revision: 656
+  cinder-ceph:
+    channel: yoga/stable
+    charm: cinder-ceph
+    revision: 527
+  cinder-mysql-router:
+    channel: 8.0/stable
+    charm: mysql-router
+    revision: 111
+  dashboard-mysql-router:
+    channel: 8.0/stable
+    charm: mysql-router
+    revision: 111
+  designate:
+    channel: yoga/stable
+    charm: designate
+    revision: 204
+  designate-bind:
+    channel: yoga/stable
+    charm: designate-bind
+    revision: 107
+  designate-mysql-router:
+    channel: 8.0/stable
+    charm: mysql-router
+    revision: 111
+  glance:
+    channel: yoga/stable
+    charm: glance
+    revision: 594
+  glance-mysql-router:
+    channel: 8.0/stable
+    charm: mysql-router
+    revision: 111
+  glance-simplestreams-sync:
+    channel: yoga/stable
+    charm: glance-simplestreams-sync
+    revision: 91
+  heat:
+    channel: yoga/stable
+    charm: heat
+    revision: 535
+  heat-mysql-router:
+    channel: 8.0/stable
+    charm: mysql-router
+    revision: 111
+  keystone:
+    channel: yoga/stable
+    charm: keystone
+    revision: 658
+  keystone-mysql-router:
+    channel: 8.0/stable
+    charm: mysql-router
+    revision: 111
+  memcached:
+    channel: stable
+    charm: cs:memcached-39
+    revision: 39
+  mysql-innodb-cluster:
+    channel: 8.0/stable
+    charm: mysql-innodb-cluster
+    revision: 106
+  neutron-api:
+    channel: yoga/stable
+    charm: neutron-api
+    revision: 560
+  neutron-api-plugin-ovn:
+    channel: yoga/stable
+    charm: neutron-api-plugin-ovn
+    revision: 29
+  neutron-mysql-router:
+    channel: 8.0/stable
+    charm: mysql-router
+    revision: 111
+  nova-cloud-controller:
+    channel: yoga/stable
+    charm: nova-cloud-controller
+    revision: 697
+  nova-compute:
+    channel: yoga/stable
+    charm: nova-compute
+    revision: 705
+  nova-mysql-router:
+    channel: 8.0/stable
+    charm: mysql-router
+    revision: 111
+  ntp:
+    channel: stable
+    charm: cs:ntp-50
+    revision: 50
+  octavia:
+    channel: yoga/stable
+    charm: octavia
+    revision: 193
+  octavia-dashboard:
+    channel: yoga/stable
+    charm: octavia-dashboard
+    revision: 44
+  octavia-diskimage-retrofit:
+    channel: yoga/stable
+    charm: octavia-diskimage-retrofit
+    revision: 102
+  octavia-mysql-router:
+    channel: 8.0/stable
+    charm: mysql-router
+    revision: 111
+  openstack-dashboard:
+    channel: yoga/stable
+    charm: openstack-dashboard
+    revision: 608
+  ovn-central:
+    channel: 22.03/stable
+    charm: ovn-central
+    revision: 144
+  ovn-chassis:
+    channel: 22.03/stable
+    charm: ovn-chassis
+    revision: 176
+  ovn-chassis-octavia:
+    channel: 22.03/stable
+    charm: ovn-chassis
+    revision: 176
+  placement:
+    channel: yoga/stable
+    charm: placement
+    revision: 94
+  placement-mysql-router:
+    channel: 8.0/stable
+    charm: mysql-router
+    revision: 111
+  rabbitmq-server:
+    channel: 3.9/stable
+    charm: rabbitmq-server
+    revision: 182
+  vault:
+    channel: 1.8/stable
+    charm: vault
+    revision: 183
+  vault-mysql-router:
+    channel: 8.0/stable
+    charm: mysql-router
+    revision: 111

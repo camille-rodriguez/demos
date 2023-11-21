@@ -1,0 +1,41 @@
+# Create example Heat stack
+ 
+TEMPLATE="https://raw.githubusercontent.com/openstack/heat-templates/master/hot/autoscaling.yaml"
+
+UBUNTU_SUBNET_ID=$(openstack subnet list --name ubuntu-subnet -f value -c ID)
+EXTERNAL_SUBNET_ID=$(openstack network list --name ext-net -f value -c ID)
+
+openstack stack create \
+  --template ${TEMPLATE} \
+  --enable-rollback \
+  --parameter key=ubuntu-keypair \
+  --parameter image=jammy-kvm \
+  --parameter flavor=m1.small \
+  --parameter database_flavor=m1.small \
+  --parameter network=ubuntu-net \
+  --parameter subnet_id=${UBUNTU_SUBNET_ID} \
+  --parameter external_network_id=${EXTERNAL_SUBNET_ID} \
+  --parameter database_name=wordpress \
+  --parameter database_user=wordpress \
+  autoscaling
+ 
+
+# without rollback to investigate errors
+openstack stack create \
+  --template ${TEMPLATE} \
+  --parameter key=ubuntu-keypair \
+  --parameter image=jammy-kvm \
+  --parameter flavor=m1.small \
+  --parameter database_flavor=m1.small \
+  --parameter network=ubuntu-net \
+  --parameter subnet_id=${UBUNTU_SUBNET_ID} \
+  --parameter external_network_id=${EXTERNAL_SUBNET_ID} \
+  --parameter database_name=wordpress \
+  --parameter database_user=wordpress \
+  autoscaling
+
+# Verify stack creation
+openstack stack show autoscaling
+ 
+# Delete the stack
+openstack stack delete autoscaling

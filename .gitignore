@@ -1,3 +1,7 @@
+# keys and stuff
+openstack-orangebox/config/root-ca.crt
+openstack-orangebox/generated/openstack/vault-keys.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

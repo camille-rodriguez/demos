@@ -13,7 +13,7 @@ http://172.27.24.1:5240/MAAS/r/machines
 admin/admin
 
 # Openstack 
-https://172.27.25.152/horizon/auth/login/
+https://172.27.25.191/horizon/auth/login/
 replace ip with horizon unit ip
 admin_domain/admin/admin
 had some issues with the novarc, make sure you export the new vault root-ca and add it to the novarc file. The novarc.json in generated also needs project id and domain id added.
